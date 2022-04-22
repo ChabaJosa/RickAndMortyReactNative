@@ -1,7 +1,7 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+ import { StyleSheet, Text, View, ScrollView, SafeAreaView } from "react-native";
 import { useEffect, useState } from "react";
-
+import Card from "./components/card";
+//
 export default function App() {
   // https://rickandmortyapi.com/api/character/?page=1
   const [data, setData] = useState(null);
@@ -18,15 +18,24 @@ export default function App() {
     await setData(res.results);
   }
   //
-  console.log("Heree ", data);
+  // console.log("Heree ", data);
   //
   if (data !== null) {
     return (
-      <View style={styles.container}> 
-        {data.map((item, index) => {
-          return <Text key={index}>{item.name}</Text>;
-        })}
-      </View>
+      <SafeAreaView style={styles.container}>
+        <Text>Rick And Morty</Text>
+        <ScrollView
+          contentContainerStyle={{
+            // flex: 1,
+            minHeight: 900,
+            paddingVertical: 24,
+          }}
+        >
+          {data.map((item, index) => {
+            return <Card key={index} data={item} />;
+          })}
+        </ScrollView>
+      </SafeAreaView>
     );
   } else {
     return <Text>Loading...</Text>;
