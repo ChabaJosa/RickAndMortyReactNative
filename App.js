@@ -12,10 +12,10 @@ import Card from "./components/card";
 export default function App() {
   // https://rickandmortyapi.com/api/character/?page=1
   const [data, setData] = useState(null);
-  const counter = useRef(1)
+  const counter = useRef(1);
   //
   useEffect(() => {
-    getData();
+    reset()
   }, []);
   //
   async function getData() {
@@ -25,21 +25,23 @@ export default function App() {
     const res = await req.json();
     // console.log(res)
     await setData(res.results);
-    counter.current++
+    counter.current++;
   }
   //
-  // console.log("Heree ", data);
+  async function reset(){
+    counter.current = 1;
+    getData();
+  }
   //
   if (data !== null) {
     return (
       <SafeAreaView style={styles.container}>
         <Text>Rick And Morty</Text>
         <View style={{ marginTop: 16 }}>
-          <Button
-            onPress={getData}
-            title="Next Page"
-            color="#841584" 
-          />
+          <Button onPress={getData} title="Next Page" color="#841584" />
+        </View>
+        <View style={{ marginTop: 16, marginBottom: -16 }}>
+          <Button onPress={reset} title="Reset" color="#841584" />
         </View>
         <ScrollView
           contentContainerStyle={{
