@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     // flex: 1,
     flexDirection: "row",
     justifyContent: "space-between",
-    backgroundColor: "#2185d0",
+    backgroundColor: "white",
     alignItems: "center",
     justifyContent: "center",
     minHeight: 56,
