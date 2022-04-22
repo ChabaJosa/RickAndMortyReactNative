@@ -15,7 +15,7 @@ export default function App() {
   const counter = useRef(1);
   //
   useEffect(() => {
-    reset()
+    reset();
   }, []);
   //
   async function getData() {
@@ -28,7 +28,7 @@ export default function App() {
     counter.current++;
   }
   //
-  async function reset(){
+  async function reset() {
     counter.current = 1;
     getData();
   }
@@ -36,7 +36,9 @@ export default function App() {
   if (data !== null) {
     return (
       <SafeAreaView style={styles.container}>
-        <Text>Rick And Morty</Text>
+        <Text style={{ fontSize: 32, fontStyle: "italic", color: "#2185d0" }}>
+          Rick And Morty
+        </Text>
         <View style={{ marginTop: 16 }}>
           <Button onPress={getData} title="Next Page" color="#841584" />
         </View>
