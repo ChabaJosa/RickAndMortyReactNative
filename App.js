@@ -38,7 +38,7 @@ export default function App() {
       <SafeAreaView style={styles.container}>
         <Text style={{ fontSize: 32, fontStyle: "italic", color: "#2185d0" }}>
           Rick And Morty
-        </Text>
+        </Text>d
         <View style={{ marginTop: 16 }}>
           <Button onPress={getData} title="Next Page" color="#841584" />
         </View>
