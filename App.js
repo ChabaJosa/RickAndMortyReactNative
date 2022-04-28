@@ -8,6 +8,8 @@ import {
 } from "react-native";
 import { useEffect, useState, useRef } from "react";
 import Card from "./components/card";
+import { NavigationContainer } from "@react-navigation/native";
+
 //
 export default function App() {
   // https://rickandmortyapi.com/api/character/?page=1
@@ -33,30 +35,33 @@ export default function App() {
     getData();
   }
   //
+  console.log(navigation);
   if (data !== null) {
     return (
-      <SafeAreaView style={styles.container}>
-        <Text style={{ fontSize: 32, fontStyle: "italic", color: "#2185d0" }}>
-          Rick And Morty
-        </Text>d
-        <View style={{ marginTop: 16 }}>
-          <Button onPress={getData} title="Next Page" color="#841584" />
-        </View>
-        <View style={{ marginTop: 16, marginBottom: -16 }}>
-          <Button onPress={reset} title="Reset" color="#841584" />
-        </View>
-        <ScrollView
-          contentContainerStyle={{
-            // flex: 1,
-            minHeight: 900,
-            paddingVertical: 24,
-          }}
-        >
-          {data.map((item, index) => {
-            return <Card key={index} data={item} />;
-          })}
-        </ScrollView>
-      </SafeAreaView>
+      <NavigationContainer>
+        <SafeAreaView style={styles.container}>
+          <Text style={{ fontSize: 32, fontStyle: "italic", color: "#2185d0" }}>
+            Rick And Morty
+          </Text>
+          <View style={{ marginTop: 16 }}>
+            <Button onPress={getData} title="Next Page" color="#841584" />
+          </View>
+          <View style={{ marginTop: 16, marginBottom: -16, paddingBottom: 16 }}>
+            <Button onPress={reset} title="Reset" color="#841584" />
+          </View>
+          <ScrollView
+            contentContainerStyle={{
+              // flex: 1,
+              minHeight: 900,
+              paddingVertical: 24,
+            }}
+          >
+            {data.map((item, index) => {
+              return <Card key={index} data={item} />;
+            })}
+          </ScrollView>
+        </SafeAreaView>
+      </NavigationContainer>
     );
   } else {
     return <Text>Loading...</Text>;

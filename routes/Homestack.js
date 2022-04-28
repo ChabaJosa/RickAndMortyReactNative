@@ -1,14 +1,18 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { NavigationContainer } from "@react-navigation/native";
 //
 const Home = createNativeStackNavigator();
-import Home from '../App'
-import Character from '../screens/character'
+import Home from "../App";
+import Character from "../screens/character";
 //
 function HomeStack() {
   return (
-    <Home.Navigator>
-      <Home.Screen name="Home" component={Home} />vS
-      <Home.Screen name="Profile" component={Profile} />v
-    </Home.Navigator>
+    <NavigationContainer>
+      <Home.Navigator>
+        <Home.Screen name="Home" component={Home} />
+        
+        <Home.Screen name="Character" component={Character} />
+      </Home.Navigator>
+    </NavigationContainer>
   );
 }
