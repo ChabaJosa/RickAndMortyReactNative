@@ -58,9 +58,9 @@ const Home = ({ navigation }) => {
             return (
               <TouchableOpacity
                 key={index}
-                onPress={() => {
+                onPress={() => { 
                   navigation.navigate("Character", {
-                    item,
+                    data: item,
                   });
                 }}
               >
