@@ -35,6 +35,7 @@ const Home = ({ navigation }) => {
     getData();
   }
   //
+  // console.log(navigation)
   if (data !== null) {
     return (
       <SafeAreaView style={styles.container}>
