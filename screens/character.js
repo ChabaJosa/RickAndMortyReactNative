@@ -1,29 +1,39 @@
 import { StyleSheet, Text, View } from "react-native";
-import React, {useEffect} from "react";
+import React, { useEffect, useState } from "react";
 
 function Character({ route }) {
   //
   const { data } = route.params;
-  // console.log(data); 
+  const [result, setResult] = useState(null);
+  // console.log(data);
   //
   useEffect(() => {
-      helper()
-  }, [])
+    helper();
+  }, []);
   //
-  async function helper(){
-      const req = await  fetch('https://rickandmortyapi.com/api/character/2')
-      const res = await req.json();
-      console.log(res)
-      // await setData(res.results);
-      // counter.current++;
+  async function helper() {
+    const req = await fetch(
+      `https://rickandmortyapi.com/api/character/${data.id}`
+    );
+    const res = await req.json();
+    console.log(res);
+    await setResult(res.results);
   }
   // https://rickandmortyapi.com/api/character/2
   //
-  return (
-    <View>
-      <Text>Character</Text>
-    </View>
-  );
+  if (result !== null) {
+    return (
+      <View>
+        <Text>Character</Text>
+      </View>
+    );
+  } else {
+    return (
+      <View>
+        <Text>Loading...</Text>
+      </View>
+    );
+  }
 }
 
 export default Character;
