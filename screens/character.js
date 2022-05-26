@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
 import React, { useEffect, useState } from "react";
+import { setStatusBarStyle } from "expo-status-bar";
 
 function Character({ route }) {
   //
@@ -17,20 +18,22 @@ function Character({ route }) {
     );
     const res = await req.json();
     console.log(res);
-    await setResult(res.results);
+    await setResult(res);
   }
   // https://rickandmortyapi.com/api/character/2
   //
   if (result !== null) {
+    console.log('hereee -->', result)
     return (
-      <View>
-        <Text>Character</Text>
+      <View style={styles.container}>
+        <Text>{result.name}</Text>
       </View>
     );
   } else {
     return (
       <View>
         <Text>Loading...</Text>
+
       </View>
     );
   }
@@ -38,4 +41,10 @@ function Character({ route }) {
 
 export default Character;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container:{
+    flex:1,
+    backgroundColor: 'whitesmoke',
+
+  }
+});
