@@ -14,7 +14,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import * as Speech from "expo-speech";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
- 
+
 function Character({ route }) {
   //
   const { data } = route.params;
@@ -40,20 +40,23 @@ function Character({ route }) {
     await setResult(res);
     await speak(res);
   }
-  // 
+  //
   async function getEpisodeData() {
     // const setModalVisible(!modalVisible)
     const holdForNow = "";
     const req = await fetch(`https://rickandmortyapi.com/api/episode`);
     const res = await req.json();
-    console.log('-->',res.episodes);
     await setEpisodeResult(res.results);
-    await setModalVisible(true);
+    if (episodeResult.length > 0) {
+      await setModalVisible(true);
+    }
+    // await setModalVisible(true);
     // console.log("AcaKbron", res);
   }
   // https://rickandmortyapi.com/api/character/2
   //
   if (result !== null) {
+    console.log("-->", episodeResult);
     // console.log("hereee -->", result);
     return (
       <View style={styles.container}>
@@ -115,23 +118,18 @@ function Character({ route }) {
                     // flex: 1,
                     minHeight: 900,
                     paddingVertical: 24,
+                    borderColor:'red',
+                    minWidth:'90%',
+                    borderWidth:8
                   }}
                 >
-                  {episodeResult !== undefined && episodeResult.lenght > 0
-                    ? episodeResult.map((item, index) => {
-                        return (
-                          <TouchableOpacity key={index} style={{minHeight: 50 , borderColor:'red', borderWidth:8}}>
-                            <View style={{minHeight: 50 }}>
-                              <Text
-                                style={{ fontSize: 18, fontStyle: "italic" }}
-                              >
-                                {item.air_date}
-                              </Text>
-                            </View>
-                          </TouchableOpacity>
-                        );
-                      })
-                    : null}
+                  {episodeResult.lenght > 0 ? (
+                    <>
+                      {episodeResult.map((item, index) => {
+                        return <Text>Hi</Text>
+                      })}
+                    </>
+                  ) : null}
                 </ScrollView>
                 <TouchableOpacity
                   style={[styles.button, styles.buttonClose]}
