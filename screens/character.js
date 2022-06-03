@@ -38,7 +38,7 @@ function Character({ route }) {
     const res = await req.json();
     // console.log(res);
     await setResult(res);
-    await speak(res);
+    // await speak(res);
   }
   //
   async function getEpisodeData() {
@@ -111,34 +111,54 @@ function Character({ route }) {
           >
             <View style={styles.centeredView}>
               <View style={styles.modalView}>
-                <Text style={styles.modalText}>Hello World!</Text>
+                <Text style={styles.modalTextHeader}>View Episodes Below</Text>
 
                 <ScrollView
                   contentContainerStyle={{
                     // flex: 1,
                     minHeight: 900,
                     paddingVertical: 24,
-                    borderColor: "red",
+                    // borderColor: "red",
                     minWidth: "90%",
-                    borderWidth: 8,
+                    // borderWidth: 8,
                   }}
-                  > 
+                >
                   {episodeResult !== [] > 0 ? (
-                    <>
-                    <Text>Hi</Text>
+                    <> 
                       {episodeResult.map((item, index) => {
                         return (
-                          <Text
-                            style={{
-                              padding: 8,
-                              minWidth: 24,
-                              minHeight: 24,
-                              borderWidth: 1,
-                              borderColor: "red",
-                            }}
-                          >
-                          {item.air_date}
-                          </Text>
+                          <View style={styles.cardContainer}>
+                            <Text
+                              style={{
+                                padding: 8,
+                                flex:1,
+                                minHeight: 24,
+
+                              }}
+                            >
+                              {item.name}
+                            </Text>
+                            <Text
+                              style={{
+                                padding: 8,
+                                flex:1,
+                                minHeight: 24,
+
+                              }}
+                            >
+                              {item.air_date}
+                            </Text>
+                            <Text
+                              style={{
+                                padding: 8,
+                                flex:1,
+                                minHeight: 24,
+
+                              }}
+                            >
+                              {item.episode}
+                            </Text>
+                          </View>
                         );
                       })}
                     </>
@@ -277,8 +297,36 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
   },
-  modalText: {
-    marginBottom: 15,
+  modalTextHeader: {
+    marginBottom: 16,
+    fontSize: 32, 
     textAlign: "center",
+  },
+  cardContainer: {
+    // flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    backgroundColor: "white",
+    alignItems: "center",
+    justifyContent: "space-evenly",
+    minHeight: 56,
+    borderRadius: 8,
+    minWidth: "90%",
+    margin: 8,
+    padding: 8,
+    ...Platform.select({
+      ios: {
+        shadowColor: "#2185d0",
+        shadowOpacity: 0.8,
+        shadowRadius: 5,
+        shadowOffset: {
+          height: 5,
+          width: 0,
+        },
+      },
+      android: {
+        elevation: 8,
+      },
+    }),
   },
 });
