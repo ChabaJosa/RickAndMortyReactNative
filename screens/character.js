@@ -123,17 +123,16 @@ function Character({ route }) {
                     // borderWidth: 8,
                   }}
                 >
-                  {episodeResult !== [] > 0 ? (
-                    <> 
+                  {episodeResult !== [] ? (
+                    <>
                       {episodeResult.map((item, index) => {
                         return (
-                          <View style={styles.cardContainer}>
+                          <View style={styles.cardContainer} key={index}>
                             <Text
                               style={{
                                 padding: 8,
-                                flex:1,
+                                flex: 1,
                                 minHeight: 24,
-
                               }}
                             >
                               {item.name}
@@ -141,9 +140,8 @@ function Character({ route }) {
                             <Text
                               style={{
                                 padding: 8,
-                                flex:1,
+                                flex: 1,
                                 minHeight: 24,
-
                               }}
                             >
                               {item.air_date}
@@ -151,13 +149,26 @@ function Character({ route }) {
                             <Text
                               style={{
                                 padding: 8,
-                                flex:1,
+                                flex: 1,
                                 minHeight: 24,
-
                               }}
                             >
                               {item.episode}
                             </Text>
+                            <View
+                              style={{
+                                padding: 8,
+                                flex: 1,
+                                minHeight: 24,
+                              }}
+                            >
+                              <FontAwesome
+                                name="arrow-right"
+                                size={32}
+                                color="#2185d0"
+                              />
+                              {/* Navigate to item.url */}
+                            </View>
                           </View>
                         );
                       })}
@@ -299,7 +310,7 @@ const styles = StyleSheet.create({
   },
   modalTextHeader: {
     marginBottom: 16,
-    fontSize: 32, 
+    fontSize: 32,
     textAlign: "center",
   },
   cardContainer: {
