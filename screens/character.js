@@ -118,15 +118,28 @@ function Character({ route }) {
                     // flex: 1,
                     minHeight: 900,
                     paddingVertical: 24,
-                    borderColor:'red',
-                    minWidth:'90%',
-                    borderWidth:8
+                    borderColor: "red",
+                    minWidth: "90%",
+                    borderWidth: 8,
                   }}
-                >
-                  {episodeResult.lenght > 0 ? (
+                  > 
+                  {episodeResult !== [] > 0 ? (
                     <>
+                    <Text>Hi</Text>
                       {episodeResult.map((item, index) => {
-                        return <Text>Hi</Text>
+                        return (
+                          <Text
+                            style={{
+                              padding: 8,
+                              minWidth: 24,
+                              minHeight: 24,
+                              borderWidth: 1,
+                              borderColor: "red",
+                            }}
+                          >
+                          {item.air_date}
+                          </Text>
+                        );
                       })}
                     </>
                   ) : null}
