@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
+  ScrollView,
   View,
 } from "react-native";
 import React, { useEffect, useState } from "react";
@@ -12,13 +13,14 @@ import { LinearGradient } from "expo-linear-gradient";
 import * as Speech from "expo-speech";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import Card from "../components/card";
 
 function Character({ route }) {
   //
   const { data } = route.params;
   const [result, setResult] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
-
+  const [episodeResult, setEpisodeResult] = useState([]);
   // console.log(data);
   const speak = (res) => {
     const thingToSay = `Hi, my name is ${res.name} and I'm a ${res.species} from ${res.location.name}`;
@@ -36,7 +38,20 @@ function Character({ route }) {
     const res = await req.json();
     console.log(res);
     await setResult(res);
-    // await speak(res);
+    await speak(res);
+  }
+  //
+  async function getEpisodeData() {
+    // const setModalVisible(!modalVisible)
+    const holdForNow = "";
+    const req = await fetch(
+      `https://rickandmortyapi.com/api/episode${holdForNow}`
+    );
+    const res = await req.json();
+    console.log(res);
+    await setEpisodeResult(res);
+    await setModalVisible(true);
+    console.log("AcaKbron", res);
   }
   // https://rickandmortyapi.com/api/character/2
   //
@@ -77,7 +92,9 @@ function Character({ route }) {
 
             <TouchableOpacity
               style={styles.buttonRow}
-              onPress={() => setModalVisible(!modalVisible)}
+              onPress={async () => {
+                await setModalVisible(true);
+              }}
             >
               <Text style={styles.rowText}>View Episodes</Text>
             </TouchableOpacity>
@@ -94,6 +111,29 @@ function Character({ route }) {
             <View style={styles.centeredView}>
               <View style={styles.modalView}>
                 <Text style={styles.modalText}>Hello World!</Text>
+
+                <ScrollView
+                  contentContainerStyle={{
+                    // flex: 1,
+                    minHeight: 900,
+                    paddingVertical: 24,
+                  }}
+                >
+                  {result.episode.map((item, index) => {
+                    return (
+                      <TouchableOpacity
+                        key={index}
+                        onPress={() => {
+                          navigation.navigate("Character", {
+                            data: item,
+                          });
+                        }}
+                      >
+                        <Card data={item} />
+                      </TouchableOpacity>
+                    );
+                  })}
+                </ScrollView>
                 <TouchableOpacity
                   style={[styles.button, styles.buttonClose]}
                   onPress={() => setModalVisible(!modalVisible)}
@@ -193,10 +233,10 @@ const styles = StyleSheet.create({
     marginTop: 22,
   },
   modalView: {
-    flex:1,
+    flex: 1,
     margin: 16,
-    width:'90%',
-    alignSelf:'center',
+    width: "90%",
+    alignSelf: "center",
     backgroundColor: "white",
     borderRadius: 20,
     padding: 16,
@@ -220,6 +260,7 @@ const styles = StyleSheet.create({
   },
   buttonClose: {
     backgroundColor: "#2196F3",
+    marginVertical: 16,
   },
   textStyle: {
     color: "white",
