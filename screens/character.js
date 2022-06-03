@@ -4,6 +4,7 @@ import {
   Modal,
   StyleSheet,
   Text,
+  Image,
   TouchableOpacity,
   ScrollView,
   View,
@@ -44,19 +45,17 @@ function Character({ route }) {
   async function getEpisodeData() {
     // const setModalVisible(!modalVisible)
     const holdForNow = "";
-    const req = await fetch(
-      `https://rickandmortyapi.com/api/episode${holdForNow}`
-    );
+    const req = await fetch(`https://rickandmortyapi.com/api/episode`);
     const res = await req.json();
     console.log(res);
     await setEpisodeResult(res);
     await setModalVisible(true);
-    console.log("AcaKbron", res);
+    // console.log("AcaKbron", res);
   }
   // https://rickandmortyapi.com/api/character/2
   //
   if (result !== null) {
-    console.log("hereee -->", result);
+    // console.log("hereee -->", result);
     return (
       <View style={styles.container}>
         <ImageBackground
@@ -93,7 +92,7 @@ function Character({ route }) {
             <TouchableOpacity
               style={styles.buttonRow}
               onPress={async () => {
-                await setModalVisible(true);
+                getEpisodeData();
               }}
             >
               <Text style={styles.rowText}>View Episodes</Text>
@@ -119,20 +118,21 @@ function Character({ route }) {
                     paddingVertical: 24,
                   }}
                 >
-                  {result.episode.map((item, index) => {
-                    return (
-                      <TouchableOpacity
-                        key={index}
-                        onPress={() => {
-                          navigation.navigate("Character", {
-                            data: item,
-                          });
-                        }}
-                      >
-                        <Card data={item} />
-                      </TouchableOpacity>
-                    );
-                  })}
+                  {/* {episodeResult !== undefined
+                    ? episodeResult.map((item, index) => {
+                        return (
+                          <TouchableOpacity key={index}>
+                            <View style={styles.textContainer}>
+                              <Text
+                                style={{ fontSize: 18, fontStyle: "italic" }}
+                              >
+                                {item.airdate}
+                              </Text>
+                            </View>
+                          </TouchableOpacity>
+                        );
+                      })
+                    : null} */}
                 </ScrollView>
                 <TouchableOpacity
                   style={[styles.button, styles.buttonClose]}
