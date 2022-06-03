@@ -14,8 +14,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import * as Speech from "expo-speech";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import Card from "../components/card";
-
+ 
 function Character({ route }) {
   //
   const { data } = route.params;
@@ -37,18 +36,18 @@ function Character({ route }) {
       `https://rickandmortyapi.com/api/character/${data.id}`
     );
     const res = await req.json();
-    console.log(res);
+    // console.log(res);
     await setResult(res);
     await speak(res);
   }
-  //
+  // 
   async function getEpisodeData() {
     // const setModalVisible(!modalVisible)
     const holdForNow = "";
     const req = await fetch(`https://rickandmortyapi.com/api/episode`);
     const res = await req.json();
-    console.log(res);
-    await setEpisodeResult(res);
+    console.log('-->',res.episodes);
+    await setEpisodeResult(res.results);
     await setModalVisible(true);
     // console.log("AcaKbron", res);
   }
@@ -118,21 +117,21 @@ function Character({ route }) {
                     paddingVertical: 24,
                   }}
                 >
-                  {/* {episodeResult !== undefined
+                  {episodeResult !== undefined && episodeResult.lenght > 0
                     ? episodeResult.map((item, index) => {
                         return (
-                          <TouchableOpacity key={index}>
-                            <View style={styles.textContainer}>
+                          <TouchableOpacity key={index} style={{minHeight: 50 , borderColor:'red', borderWidth:8}}>
+                            <View style={{minHeight: 50 }}>
                               <Text
                                 style={{ fontSize: 18, fontStyle: "italic" }}
                               >
-                                {item.airdate}
+                                {item.air_date}
                               </Text>
                             </View>
                           </TouchableOpacity>
                         );
                       })
-                    : null} */}
+                    : null}
                 </ScrollView>
                 <TouchableOpacity
                   style={[styles.button, styles.buttonClose]}
